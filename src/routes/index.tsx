@@ -183,7 +183,7 @@ function Index() {
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-5 text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">O que pais e responsáveis estão dizendo</h2>
           <div
-            className="mx-auto flex w-full max-w-[1200px] touch-pan-y items-center justify-center gap-2 sm:gap-4"
+            className="relative mx-auto w-full max-w-[1050px] touch-pan-y"
             onTouchStart={(event) => {
               testimonialTouchStart.current = event.touches[0]?.clientX ?? null;
             }}
@@ -197,15 +197,25 @@ function Index() {
               else showPreviousTestimonial();
             }}
           >
-            <button
-              type="button"
-              aria-label="Depoimento anterior"
-              onClick={showPreviousTestimonial}
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:text-slate-900 hover:shadow-md sm:h-11 sm:w-11"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <div className="w-[calc(100%-88px)] max-w-[1050px] overflow-hidden">
+            <div className="absolute -top-14 right-0 z-10 flex gap-2">
+              <button
+                type="button"
+                aria-label="Depoimento anterior"
+                onClick={showPreviousTestimonial}
+                className="grid h-9 w-9 place-items-center rounded-full border border-amber-200 bg-amber-50 text-slate-600 shadow-sm transition hover:bg-amber-100 hover:text-slate-900"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                aria-label="Próximo depoimento"
+                onClick={showNextTestimonial}
+                className="grid h-9 w-9 place-items-center rounded-full border border-amber-200 bg-amber-50 text-slate-600 shadow-sm transition hover:bg-amber-100 hover:text-slate-900"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="overflow-hidden">
               <div
                 key={testimonialIndex}
                 className="grid grid-cols-1 gap-3 sm:grid-cols-3"
@@ -219,20 +229,12 @@ function Index() {
                       src={testimonials[imageIndex]}
                       alt={`Depoimento de cliente ${imageIndex + 1}`}
                       draggable={false}
-                      className={`block h-auto w-full min-w-0 select-none object-contain ${offset > 0 ? "hidden sm:block" : ""}`}
+                      className={`block h-auto w-full min-w-0 select-none rounded-2xl border border-amber-100 object-contain ${offset > 0 ? "hidden sm:block" : ""}`}
                     />
                   );
                 })}
               </div>
             </div>
-            <button
-              type="button"
-              aria-label="Próximo depoimento"
-              onClick={showNextTestimonial}
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:text-slate-900 hover:shadow-md sm:h-11 sm:w-11"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
           </div>
           <div className="mt-4 flex justify-center gap-2" aria-label="Selecionar depoimento">
             {testimonials.map((_, index) => (
