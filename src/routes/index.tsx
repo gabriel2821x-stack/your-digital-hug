@@ -86,9 +86,9 @@ function Index() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const testimonialTouchStart = useRef<number | null>(null);
 
-  const testimonialSlides = [testimonials.slice(0, 3), testimonials.slice(1, 4)];
-  const showPreviousTestimonial = () => setTestimonialIndex((index) => (index - 1 + testimonialSlides.length) % testimonialSlides.length);
-  const showNextTestimonial = () => setTestimonialIndex((index) => (index + 1) % testimonialSlides.length);
+  const testimonialPositions = 2;
+  const showPreviousTestimonial = () => setTestimonialIndex((index) => (index - 1 + testimonialPositions) % testimonialPositions);
+  const showNextTestimonial = () => setTestimonialIndex((index) => (index + 1) % testimonialPositions);
 
   useEffect(() => {
     if (!upgradeOpen) return;
@@ -212,17 +212,16 @@ function Index() {
 
             <div className="overflow-hidden">
               <div
-                key={testimonialIndex}
-                className="grid grid-cols-3 gap-4"
-                style={{ animation: "testimonialFade 300ms ease-out" }}
+                className="flex gap-4 transition-transform duration-300 ease-out"
+                style={{ transform: `translateX(calc(-${testimonialIndex} * ((100% - 2rem) / 3 + 1rem)))` }}
               >
-                {testimonialSlides[testimonialIndex].map((src, imageIndex) => (
+                {testimonials.map((src, imageIndex) => (
                   <img
                     key={src}
                     src={src}
-                    alt={`Depoimento de cliente ${testimonialIndex + imageIndex + 1}`}
+                    alt={`Depoimento de cliente ${imageIndex + 1}`}
                     draggable={false}
-                    className="block h-auto w-full min-w-0 select-none rounded-2xl border border-amber-100 bg-amber-50/30 object-contain"
+                    className="block h-auto w-[calc((100%-2rem)/3)] min-w-[calc((100%-2rem)/3)] select-none rounded-2xl border border-amber-100 bg-amber-50/30 object-contain"
                   />
                 ))}
               </div>
@@ -238,7 +237,7 @@ function Index() {
             </button>
           </div>
           <div className="mt-5 flex justify-center gap-2" aria-label="Selecionar grupo de depoimentos">
-            {testimonialSlides.map((_, index) => (
+            {Array.from({ length: testimonialPositions }).map((_, index) => (
               <button
                 key={index}
                 type="button"
@@ -249,7 +248,7 @@ function Index() {
               />
             ))}
           </div>
-          <style>{`@keyframes testimonialFade { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }`}</style>
+          
         </div>
       </section>
 
