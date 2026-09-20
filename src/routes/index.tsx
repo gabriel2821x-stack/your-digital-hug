@@ -86,8 +86,9 @@ function Index() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const testimonialTouchStart = useRef<number | null>(null);
 
-  const showPreviousTestimonial = () => setTestimonialIndex((index) => (index - 1 + testimonials.length) % testimonials.length);
-  const showNextTestimonial = () => setTestimonialIndex((index) => (index + 1) % testimonials.length);
+  const testimonialSlides = [testimonials.slice(0, 3), testimonials.slice(3)];
+  const showPreviousTestimonial = () => setTestimonialIndex((index) => (index - 1 + testimonialSlides.length) % testimonialSlides.length);
+  const showNextTestimonial = () => setTestimonialIndex((index) => (index + 1) % testimonialSlides.length);
 
   useEffect(() => {
     if (!upgradeOpen) return;
@@ -183,7 +184,7 @@ function Index() {
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-5 text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">O que pais e responsáveis estão dizendo</h2>
           <div
-            className="relative mx-auto w-full max-w-[1050px] touch-pan-y"
+            className="relative mx-auto w-full max-w-[1120px] touch-pan-y px-12 sm:px-14"
             onTouchStart={(event) => {
               testimonialTouchStart.current = event.touches[0]?.clientX ?? null;
             }}
@@ -197,51 +198,48 @@ function Index() {
               else showPreviousTestimonial();
             }}
           >
-            <div className="absolute -top-14 right-0 z-10 flex gap-2">
-              <button
-                type="button"
-                aria-label="Depoimento anterior"
-                onClick={showPreviousTestimonial}
-                className="grid h-9 w-9 place-items-center rounded-full border border-amber-200 bg-amber-50 text-slate-600 shadow-sm transition hover:bg-amber-100 hover:text-slate-900"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                type="button"
-                aria-label="Próximo depoimento"
-                onClick={showNextTestimonial}
-                className="grid h-9 w-9 place-items-center rounded-full border border-amber-200 bg-amber-50 text-slate-600 shadow-sm transition hover:bg-amber-100 hover:text-slate-900"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
+            <button
+              type="button"
+              aria-label="Depoimentos anteriores"
+              onClick={showPreviousTestimonial}
+              className="absolute left-0 top-1/2 z-10 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:bg-slate-50 hover:text-slate-900 hover:shadow-md"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
             <div className="overflow-hidden">
               <div
                 key={testimonialIndex}
-                className="grid grid-cols-1 gap-3 sm:grid-cols-3"
+                className={`grid gap-4 ${testimonialIndex === 0 ? "grid-cols-1 sm:grid-cols-3" : "grid-cols-1 sm:grid-cols-3"}`}
                 style={{ animation: "testimonialFade 300ms ease-out" }}
               >
-                {[0, 1, 2].map((offset) => {
-                  const imageIndex = (testimonialIndex + offset) % testimonials.length;
-                  return (
-                    <img
-                      key={`${testimonialIndex}-${imageIndex}`}
-                      src={testimonials[imageIndex]}
-                      alt={`Depoimento de cliente ${imageIndex + 1}`}
-                      draggable={false}
-                      className={`block h-auto w-full min-w-0 select-none rounded-2xl border border-amber-100 object-contain ${offset > 0 ? "hidden sm:block" : ""}`}
-                    />
-                  );
-                })}
+                {testimonialSlides[testimonialIndex].map((src, imageIndex) => (
+                  <img
+                    key={src}
+                    src={src}
+                    alt={`Depoimento de cliente ${testimonialIndex === 0 ? imageIndex + 1 : 4}`}
+                    draggable={false}
+                    className={`block h-auto w-full min-w-0 select-none rounded-2xl border border-slate-200 object-contain ${testimonialIndex === 1 ? "sm:col-start-2" : ""}`}
+                  />
+                ))}
               </div>
             </div>
+
+            <button
+              type="button"
+              aria-label="Próximos depoimentos"
+              onClick={showNextTestimonial}
+              className="absolute right-0 top-1/2 z-10 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:bg-slate-50 hover:text-slate-900 hover:shadow-md"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
-          <div className="mt-4 flex justify-center gap-2" aria-label="Selecionar depoimento">
-            {testimonials.map((_, index) => (
+          <div className="mt-4 flex justify-center gap-2" aria-label="Selecionar grupo de depoimentos">
+            {testimonialSlides.map((_, index) => (
               <button
                 key={index}
                 type="button"
-                aria-label={`Mostrar depoimento ${index + 1}`}
+                aria-label={`Mostrar grupo de depoimentos ${index + 1}`}
                 aria-current={testimonialIndex === index ? "true" : undefined}
                 onClick={() => setTestimonialIndex(index)}
                 className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${testimonialIndex === index ? "scale-110 bg-sky-600" : "bg-slate-300 hover:bg-slate-400"}`}
