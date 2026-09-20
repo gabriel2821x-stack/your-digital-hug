@@ -136,7 +136,7 @@ function Index() {
 
       <section className="px-5 py-[30px] sm:px-8">
         <img
-          src="/ctivities/ChatGPT%20Image%2020_09_2026,%2016_28_43.png"
+          src="/ctivities/ChatGPT Image 20_09_2026, 16_28_43.png"
           alt="Coordenação, precisão, preparação para a escrita, letras e atividades imprimíveis"
           className="mx-auto block h-auto w-full max-w-[1100px] object-contain"
         />
