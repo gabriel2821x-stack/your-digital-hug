@@ -287,16 +287,12 @@ function Index() {
         </div>
       </section>
 
-      <section className="px-5 py-16 sm:px-8 sm:py-24">
-        <div className="mx-auto max-w-4xl rounded-[2rem] border border-emerald-100 bg-emerald-50/60 p-7 text-center sm:p-12">
-          <div className="mx-auto grid h-20 w-20 place-items-center rounded-3xl bg-emerald-100 text-emerald-700"><ShieldCheck className="h-10 w-10" /></div>
-          <h2 className="mt-6 text-3xl font-black text-slate-900 sm:text-4xl">Você compra com garantia</h2>
-          <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-600">Você terá 7 dias de garantia para conhecer o material. Caso esteja dentro das condições aplicáveis e não queira permanecer com a compra, poderá solicitar o reembolso dentro desse período.</p>
-          <p className="mx-auto mt-6 inline-block rounded-2xl bg-emerald-600 px-5 py-3 text-lg font-black text-white">7 DIAS DE GARANTIA</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-5 text-sm font-bold text-slate-700">
-            <span className="flex items-center gap-2"><LockKeyhole className="h-4 w-4" /> Pagamento seguro</span><span className="flex items-center gap-2"><Download className="h-4 w-4" /> Produto digital</span><span className="flex items-center gap-2"><Printer className="h-4 w-4" /> Material imprimível</span>
-          </div>
-        </div>
+      <section className="px-5 py-10 sm:px-8">
+        <img
+          src="/ctivities/ChatGPT%20Image%2020_09_2026,%2016_22_15.png"
+          alt="Garantia de 7 dias"
+          className="mx-auto block h-auto w-full max-w-[1400px] object-contain"
+        />
       </section>
 
       <section className="bg-sky-50/60 px-5 py-16 sm:px-8 sm:py-24">
