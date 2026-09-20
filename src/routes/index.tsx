@@ -36,10 +36,12 @@ const activities = [
 ];
 
 const testimonials = [
-  "/ctivities/ChatGPT Image 20_09_2026, 15_13_15.png",
-  "/ctivities/ChatGPT Image 20_09_2026, 15_14_57.png",
-  "/ctivities/ChatGPT Image 20_09_2026, 15_16_56.png",
-  "/ctivities/ChatGPT Image 20_09_2026, 15_19_49.png",
+  [
+    "/ctivities/ChatGPT Image 20_09_2026, 15_13_15.png",
+    "/ctivities/ChatGPT Image 20_09_2026, 15_14_57.png",
+    "/ctivities/ChatGPT Image 20_09_2026, 15_16_56.png",
+  ],
+  ["/ctivities/ChatGPT Image 20_09_2026, 15_19_49.png"],
 ];
 
 const faqs = [
@@ -183,7 +185,7 @@ function Index() {
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-5 text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">O que pais e responsáveis estão dizendo</h2>
           <div
-            className="mx-auto flex w-full max-w-[560px] touch-pan-y items-center justify-center gap-2 sm:gap-4"
+            className="mx-auto flex w-full max-w-[1200px] touch-pan-y items-center justify-center gap-2 sm:gap-4"
             onTouchStart={(event) => {
               testimonialTouchStart.current = event.touches[0]?.clientX ?? null;
             }}
@@ -205,15 +207,20 @@ function Index() {
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
-            <div className="w-[calc(100%-88px)] max-w-[450px] overflow-hidden rounded-2xl">
-              <img
-                key={testimonialIndex}
-                src={testimonials[testimonialIndex]}
-                alt={`Depoimento de cliente ${testimonialIndex + 1} de ${testimonials.length}`}
-                draggable={false}
-                className="block h-auto w-full select-none object-contain"
-                style={{ animation: "testimonialFade 300ms ease-out" }}
-              />
+            <div
+              key={testimonialIndex}
+              className={`grid w-[calc(100%-88px)] gap-3 overflow-hidden ${testimonials[testimonialIndex].length === 3 ? "max-w-[1050px] grid-cols-3" : "max-w-[450px] grid-cols-1"}`}
+              style={{ animation: "testimonialFade 300ms ease-out" }}
+            >
+              {testimonials[testimonialIndex].map((src, imageIndex) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt={`Depoimento de cliente ${testimonialIndex * 3 + imageIndex + 1}`}
+                  draggable={false}
+                  className="block h-auto w-full min-w-0 select-none object-contain"
+                />
+              ))}
             </div>
             <button
               type="button"
