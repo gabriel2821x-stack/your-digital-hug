@@ -106,6 +106,7 @@ function Index() {
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-600">
               Centenas de atividades imprimíveis, divertidas e progressivas para praticar movimentos, traçados, precisão e habilidades importantes para a escrita.
             </p>
+            <div className="mx-auto mt-7 aspect-video w-full max-w-[1000px]" aria-hidden="true" />
             <div className="mx-auto mt-7 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold text-slate-700">
               {["Atividades prontas para imprimir", "Prática progressiva", "Diferentes tipos de exercícios", "Material digital", "Acesso após a compra"].map((item) => (
                 <div key={item} className="flex items-center justify-center gap-2">
@@ -114,17 +115,6 @@ function Index() {
               ))}
             </div>
             <p className="mt-5 text-xs text-slate-500">Produto digital • Imprima as páginas que desejar</p>
-          </div>
-          <div className="relative mx-auto mt-9 w-full max-w-2xl sm:mt-12">
-            <div className="absolute inset-10 rounded-full bg-sky-200/40 blur-3xl" />
-            <div className="relative grid grid-cols-2 gap-3 px-1 py-6 sm:gap-6 sm:px-8">
-              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg -rotate-2 translate-y-3 sm:-rotate-3 sm:translate-y-5">
-                <img src="/atividade-abelhinhas.svg" alt="Atividade de coordenação motora com abelhinhas" className="h-full w-full object-cover" />
-              </div>
-              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg rotate-2 sm:rotate-3">
-                <img src="/atividade-cachorrinho.svg" alt="Atividade de coordenação motora com cachorrinho" className="h-full w-full object-cover" />
-              </div>
-            </div>
           </div>
         </div>
       </section>
