@@ -105,7 +105,7 @@ function Index() {
   }, [upgradeOpen]);
 
   return (
-    <main className="overflow-x-hidden bg-sky-100 text-slate-800 [&_section]:!bg-sky-100 [&_footer]:!bg-sky-100 [&_section]:!bg-none">
+    <main className="overflow-x-hidden bg-white text-slate-800">
       <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-white to-white px-5 pb-16 pt-10 sm:px-8 sm:pb-24 sm:pt-14 lg:pt-16">
         <div className="pointer-events-none absolute -right-24 top-12 h-72 w-72 rounded-full bg-amber-200/30 blur-3xl" />
         <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-emerald-200/30 blur-3xl" />
