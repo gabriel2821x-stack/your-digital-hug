@@ -106,8 +106,12 @@ function Index() {
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-600">
               Centenas de atividades imprimíveis, divertidas e progressivas para praticar movimentos, traçados, precisão e habilidades importantes para a escrita.
             </p>
-            <div className="mx-auto mt-7 aspect-video w-full max-w-[1000px]" aria-hidden="true" />
-            <div className="mx-auto mt-7 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold text-slate-700">
+            <img
+              src="https://drive.google.com/thumbnail?id=1t0Af2kR4X1dfzNgeOXGGu95DhITRloWF&sz=w1600"
+              alt="Atividades educativas imprimíveis para coordenação motora e preparação para a escrita"
+              className="mx-auto mt-4 h-auto w-full max-w-[1000px] object-contain"
+            />
+            <div className="mx-auto mt-4 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold text-slate-700">
               {["Atividades prontas para imprimir", "Prática progressiva", "Diferentes tipos de exercícios", "Material digital", "Acesso após a compra"].map((item) => (
                 <div key={item} className="flex items-center justify-center gap-2">
                   <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3.5 w-3.5" /></span>{item}
