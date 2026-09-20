@@ -33,8 +33,6 @@ const activities = [
   { label: "Letras e escrita", src: "/ctivities/ChatGPT Image 20_09_2026, 14_40_23.png" },
 ];
 
-const testimonials = [1, 2, 3];
-
 const faqs = [
   ["O produto é físico?", "Não. Este é um produto 100% digital. Você recebe o material para baixar e pode imprimir as atividades."],
   ["Qual a diferença entre os dois pacotes?", "O Pacote Essencial possui 150 atividades. O Pacote Completo possui 500 atividades e oferece uma variedade maior de exercícios e progressão de conteúdo."],
@@ -167,20 +165,14 @@ function Index() {
         </div>
       </section>
 
-      <section className="px-5 py-16 sm:px-8 sm:py-24">
-        <div className="mx-auto max-w-6xl">
-          <SectionTitle title="O que pais e responsáveis estão dizendo" subtitle="Espaço preparado para você adicionar avaliações reais de clientes." />
-          <div className="grid gap-5 md:grid-cols-3">
-            {testimonials.map((item) => (
-              <div key={item} className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-6">
-                <div className="mb-5 grid h-12 w-12 place-items-center rounded-full bg-slate-200 text-xs font-bold text-slate-500">FOTO</div>
-                <p className="mb-3 inline-block rounded-lg bg-slate-200 px-3 py-1 text-[10px] font-black tracking-wide text-slate-600">ADICIONAR DEPOIMENTO REAL</p>
-                <div className="mb-4 flex gap-1 text-amber-400">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}</div>
-                <p className="text-sm italic leading-6 text-slate-600">“Insira aqui o depoimento verdadeiro de um cliente.”</p>
-                <p className="mt-5 text-sm font-extrabold text-slate-800">— Nome do cliente</p>
-              </div>
-            ))}
-          </div>
+      <section className="px-5 py-12 sm:px-8 sm:py-16">
+        <div className="mx-auto max-w-[1200px]">
+          <h2 className="mb-6 text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">O que pais e responsáveis estão dizendo</h2>
+          <img
+            src="/ctivities/ChatGPT Image 20_09_2026, 14_49_51.png"
+            alt="Depoimentos de pais e responsáveis"
+            className="mx-auto block h-auto w-full max-w-[1200px] object-contain"
+          />
         </div>
       </section>
 
