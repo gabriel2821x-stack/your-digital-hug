@@ -163,14 +163,14 @@ function Index() {
       <section className="bg-amber-50/70 px-5 py-16 sm:px-8 sm:py-24">
         <div className="mx-auto max-w-6xl">
           <SectionTitle title="E ainda tem bônus 🎁" subtitle="Recursos extras para ajudar os responsáveis a organizar e acompanhar os momentos de prática." />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
             {[
               ["Guia rápido para os responsáveis", "Orientações simples para organizar os momentos de prática.", "/ctivities/ChatGPT Image 20_09_2026, 15_55_41.png"],
               ["Calendário de atividades", "Uma forma simples de acompanhar as atividades realizadas.", "/ctivities/ChatGPT Image 20_09_2026, 15_55_50.png"],
               ["Certificado de conclusão", "Um certificado imprimível para tornar o final da jornada mais especial.", "/ctivities/ChatGPT Image 20_09_2026, 15_56_04.png"],
             ].map(([title, description, image], i) => (
-              <div key={title} className="relative flex h-full flex-col rounded-3xl border border-amber-100 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg sm:p-5">
-                <img src={image} alt={title} className="block h-auto w-full rounded-xl object-contain" />
+              <div key={title} className="relative flex h-full min-w-0 flex-col rounded-2xl border border-amber-100 bg-white p-2 shadow-sm transition hover:-translate-y-1 hover:shadow-lg sm:p-3 lg:p-4">
+                <img src={image} alt={title} className="mx-auto block h-auto w-full max-w-[320px] rounded-xl object-contain" />
                 <div className="px-1 pb-1 pt-5">
                   <p className="text-xs font-black uppercase tracking-widest text-amber-700">Bônus {i + 1}</p>
                   <h3 className="mt-2 text-xl font-black text-slate-900">{title}</h3>
