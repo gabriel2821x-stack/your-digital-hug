@@ -137,8 +137,8 @@ function Index() {
       <section className="px-5 py-16 sm:px-8 sm:py-24">
         <div className="mx-auto max-w-6xl">
           <SectionTitle eyebrow="Material digital" title="Veja o que você vai receber" subtitle="Um material pensado para transformar o momento de praticar em uma experiência mais leve, visual e variada." />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {activities.map((item, i) => <ActivitySheet key={item.label} label={item.label} src={item.src} rotate={i % 2 ? "translate-y-5" : ""} />)}
+          <div className="grid grid-cols-2 items-stretch gap-4">
+            {activities.map((item, i) => <ActivitySheet key={item.label} label={item.label} src={item.src} />)}
           </div>
         </div>
       </section>
