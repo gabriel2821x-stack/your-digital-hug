@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  ArrowRight,
   BookOpen,
   CalendarDays,
   Check,
@@ -94,47 +93,36 @@ function Index() {
     };
   }, [upgradeOpen]);
 
-  const scrollToOffers = () => document.getElementById("ofertas")?.scrollIntoView({ behavior: "smooth" });
-
   return (
     <main className="overflow-x-hidden bg-white text-slate-800">
-      <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-white to-white px-5 pb-16 pt-7 sm:px-8 sm:pb-24 lg:pt-10">
+      <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-white to-white px-5 pb-16 pt-10 sm:px-8 sm:pb-24 sm:pt-14 lg:pt-16">
         <div className="pointer-events-none absolute -right-24 top-12 h-72 w-72 rounded-full bg-amber-200/30 blur-3xl" />
         <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-emerald-200/30 blur-3xl" />
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-sky-100 bg-white px-4 py-2 text-sm font-extrabold text-sky-700 shadow-sm">
-            <BookOpen className="h-4 w-4" /> SUA LOGO • Material educativo imprimível
-          </div>
-          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr]">
-            <div>
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1.5 text-xs font-black uppercase tracking-wide text-amber-800">
-                <Sparkles className="h-4 w-4" /> Prática leve, visual e variada
-              </div>
-              <h1 className="text-4xl font-black leading-[1.06] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                Ajude seu filho a ganhar mais <span className="text-sky-600">segurança e controle</span> na hora de escrever
-              </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-                Centenas de atividades imprimíveis, divertidas e progressivas para praticar movimentos, traçados, precisão e habilidades importantes para a escrita.
-              </p>
-              <div className="mt-7 grid gap-3 text-sm font-semibold text-slate-700 sm:grid-cols-2">
-                {["Atividades prontas para imprimir", "Prática progressiva", "Diferentes tipos de exercícios", "Material digital", "Acesso após a compra"].map((item) => (
-                  <div key={item} className="flex items-center gap-2"><span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3.5 w-3.5" /></span>{item}</div>
-                ))}
-              </div>
-              <button onClick={scrollToOffers} className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-sky-600 px-6 py-4 text-sm font-black text-white shadow-lg shadow-sky-200 transition hover:-translate-y-0.5 hover:bg-sky-700 sm:w-auto sm:text-base">
-                QUERO CONHECER AS ATIVIDADES <ArrowRight className="h-5 w-5" />
-              </button>
-              <p className="mt-3 text-xs text-slate-500">Produto digital • Imprima as páginas que desejar</p>
+        <div className="relative mx-auto max-w-6xl text-center">
+          <div className="mx-auto max-w-5xl">
+            <h1 className="mx-auto max-w-4xl text-4xl font-black leading-[1.06] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+              Ajude seu filho a ganhar mais <span className="text-sky-600">segurança e controle</span> na hora de escrever
+            </h1>
+            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-600">
+              Centenas de atividades imprimíveis, divertidas e progressivas para praticar movimentos, traçados, precisão e habilidades importantes para a escrita.
+            </p>
+            <div className="mx-auto mt-7 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold text-slate-700">
+              {["Atividades prontas para imprimir", "Prática progressiva", "Diferentes tipos de exercícios", "Material digital", "Acesso após a compra"].map((item) => (
+                <div key={item} className="flex items-center justify-center gap-2">
+                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3.5 w-3.5" /></span>{item}
+                </div>
+              ))}
             </div>
-            <div className="relative mx-auto w-full max-w-lg">
-              <div className="absolute inset-10 rounded-full bg-sky-200/40 blur-3xl" />
-              <div className="relative grid grid-cols-2 gap-4 px-4 py-6">
-                <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg -rotate-3 translate-y-5">
-                  <img src="/atividade-abelhinhas.svg" alt="Atividade de coordenação motora com abelhinhas" className="h-full w-full object-cover" />
-                </div>
-                <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg rotate-3">
-                  <img src="/atividade-cachorrinho.svg" alt="Atividade de coordenação motora com cachorrinho" className="h-full w-full object-cover" />
-                </div>
+            <p className="mt-5 text-xs text-slate-500">Produto digital • Imprima as páginas que desejar</p>
+          </div>
+          <div className="relative mx-auto mt-9 w-full max-w-2xl sm:mt-12">
+            <div className="absolute inset-10 rounded-full bg-sky-200/40 blur-3xl" />
+            <div className="relative grid grid-cols-2 gap-3 px-1 py-6 sm:gap-6 sm:px-8">
+              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg -rotate-2 translate-y-3 sm:-rotate-3 sm:translate-y-5">
+                <img src="/atividade-abelhinhas.svg" alt="Atividade de coordenação motora com abelhinhas" className="h-full w-full object-cover" />
+              </div>
+              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg rotate-2 sm:rotate-3">
+                <img src="/atividade-cachorrinho.svg" alt="Atividade de coordenação motora com cachorrinho" className="h-full w-full object-cover" />
               </div>
             </div>
           </div>
