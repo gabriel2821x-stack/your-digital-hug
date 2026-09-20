@@ -27,9 +27,9 @@ const CHECKOUTS = {
 } as const;
 
 const activities = [
-  { label: "Caminhos e labirintos", src: "/ctivities/ChatGPT Image 20_09_2026, 14_04_41.png" },
+  { label: "Caminhos e labirintos", src: "/ctivities/ChatGPT Image 20_09_2026, 13_56_21.png" },
   { label: "Traçados e movimentos", src: "/ctivities/ChatGPT Image 20_09_2026, 13_59_31.png" },
-  { label: "Precisão e limites", src: "/ctivities/ChatGPT Image 20_09_2026, 13_56_21.png" },
+  { label: "Precisão e limites", src: "/ctivities/ChatGPT Image 20_09_2026, 14_04_41.png" },
   { label: "Letras e escrita", src: "/ctivities/ChatGPT Image 20_09_2026, 13_58_16.png" },
 ];
 
