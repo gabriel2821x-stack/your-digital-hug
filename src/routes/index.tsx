@@ -26,11 +26,11 @@ const CHECKOUTS = {
   UPGRADE_CHECKOUT_URL: "",
 } as const;
 
-const activityPlaceholders = [
-  "Caminhos e labirintos",
-  "Traçados e movimentos",
-  "Precisão e limites",
-  "Letras e escrita",
+const activities = [
+  { label: "Caminhos e labirintos", src: "/ctivities/ChatGPT Image 20_09_2026, 14_04_41.png" },
+  { label: "Traçados e movimentos", src: "/ctivities/ChatGPT Image 20_09_2026, 13_59_31.png" },
+  { label: "Precisão e limites", src: "/ctivities/ChatGPT Image 20_09_2026, 13_56_21.png" },
+  { label: "Letras e escrita", src: "/ctivities/ChatGPT Image 20_09_2026, 13_58_16.png" },
 ];
 
 const testimonials = [1, 2, 3];
@@ -64,15 +64,11 @@ function SectionTitle({ eyebrow, title, subtitle }: { eyebrow?: string; title: s
   );
 }
 
-function ActivitySheet({ label, rotate = "" }: { label: string; rotate?: string }) {
+function ActivitySheet({ label, src, rotate = "" }: { label: string; src: string; rotate?: string }) {
   return (
-    <div className={`relative aspect-[3/4] overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-lg ${rotate}`}>
-      <div className="mb-3 flex items-center gap-2"><div className="h-3 w-16 rounded-full bg-sky-100" /><div className="h-3 w-8 rounded-full bg-amber-100" /></div>
-      <div className="grid h-[70%] place-items-center rounded-xl border-2 border-dashed border-sky-200 bg-sky-50/60">
-        <PencilLine className="h-9 w-9 text-sky-400" />
-      </div>
+    <div className={`relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-lg ${rotate}`}>
+      <img src={src} alt={label} className="mx-auto h-auto w-full object-contain" />
       <p className="mt-3 text-center text-xs font-bold text-slate-500">{label}</p>
-      <span className="absolute right-2 top-2 rounded-full bg-amber-300 px-2 py-1 text-[9px] font-black text-amber-950">IMAGEM</span>
     </div>
   );
 }
@@ -127,8 +123,8 @@ function Index() {
         <div className="mx-auto max-w-6xl">
           <SectionTitle eyebrow="Material digital" title="Veja o que você vai receber" subtitle="Um material pensado para transformar o momento de praticar em uma experiência mais leve, visual e variada." />
           <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className="grid grid-cols-2 gap-4">
-              {activityPlaceholders.map((item, i) => <ActivitySheet key={item} label={item} rotate={i % 2 ? "translate-y-5" : ""} />)}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {activities.map((item, i) => <ActivitySheet key={item.label} label={item.label} src={item.src} rotate={i % 2 ? "translate-y-5" : ""} />)}
             </div>
             <div className="space-y-4">
               {[
