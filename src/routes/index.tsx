@@ -184,9 +184,10 @@ function Index() {
 
       <section className="px-5 py-12 sm:px-8 sm:py-16">
         <div className="mx-auto max-w-6xl">
-          <h2 className="mb-5 text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">O que pais e responsáveis estão dizendo</h2>
+          <h2 className="text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">Veja o que as famílias estão falando</h2>
+          <p className="mx-auto mt-3 mb-10 max-w-2xl text-center text-sm text-slate-500 sm:text-base">Arraste para o lado e confira alguns dos resultados enviados por nossos clientes.</p>
           <div
-            className="relative mx-auto w-full max-w-[1120px] touch-pan-y px-12 sm:px-14"
+            className="relative mx-auto w-full max-w-[1180px] touch-pan-y px-0 sm:px-4"
             onTouchStart={(event) => {
               testimonialTouchStart.current = event.touches[0]?.clientX ?? null;
             }}
@@ -204,7 +205,7 @@ function Index() {
               type="button"
               aria-label="Depoimentos anteriores"
               onClick={showPreviousTestimonial}
-              className="absolute left-0 top-1/2 z-10 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:bg-slate-50 hover:text-slate-900 hover:shadow-md"
+              className="absolute right-14 -top-14 z-10 grid h-9 w-9 place-items-center rounded-full border border-amber-100 bg-amber-50 text-slate-600 shadow-sm transition hover:bg-amber-100 hover:text-slate-900"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -212,7 +213,7 @@ function Index() {
             <div className="overflow-hidden">
               <div
                 key={testimonialIndex}
-                className={`grid gap-4 ${testimonialIndex === 0 ? "grid-cols-1 sm:grid-cols-3" : "grid-cols-1 sm:grid-cols-3"}`}
+                className="grid grid-cols-3 gap-4"
                 style={{ animation: "testimonialFade 300ms ease-out" }}
               >
                 {testimonialSlides[testimonialIndex].map((src, imageIndex) => (
@@ -221,7 +222,7 @@ function Index() {
                     src={src}
                     alt={`Depoimento de cliente ${testimonialIndex === 0 ? imageIndex + 1 : 4}`}
                     draggable={false}
-                    className={`block h-auto w-full min-w-0 select-none rounded-2xl border border-slate-200 object-contain ${testimonialIndex === 1 ? "sm:col-start-2" : ""}`}
+                    className={`block h-auto w-full min-w-0 select-none rounded-2xl border border-amber-100 bg-amber-50/30 object-contain ${testimonialIndex === 1 ? "col-start-2" : ""}`}
                   />
                 ))}
               </div>
@@ -231,12 +232,12 @@ function Index() {
               type="button"
               aria-label="Próximos depoimentos"
               onClick={showNextTestimonial}
-              className="absolute right-0 top-1/2 z-10 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:bg-slate-50 hover:text-slate-900 hover:shadow-md"
+              className="absolute right-2 -top-14 z-10 grid h-9 w-9 place-items-center rounded-full border border-amber-100 bg-amber-50 text-slate-600 shadow-sm transition hover:bg-amber-100 hover:text-slate-900"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
           </div>
-          <div className="mt-4 flex justify-center gap-2" aria-label="Selecionar grupo de depoimentos">
+          <div className="mt-5 flex justify-center gap-2" aria-label="Selecionar grupo de depoimentos">
             {testimonialSlides.map((_, index) => (
               <button
                 key={index}
