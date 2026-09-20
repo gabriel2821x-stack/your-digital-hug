@@ -66,9 +66,9 @@ function SectionTitle({ eyebrow, title, subtitle }: { eyebrow?: string; title: s
 
 function ActivitySheet({ label, src, rotate = "" }: { label: string; src: string; rotate?: string }) {
   return (
-    <div className={`relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-lg ${rotate}`}>
-      <img src={src} alt={label} className="mx-auto h-auto w-full object-contain" />
-      <p className="mt-3 text-center text-xs font-bold text-slate-500">{label}</p>
+    <div className={`relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg ${rotate}`}>
+      <img src={src} alt={label} className="block h-auto w-full object-contain" />
+      <p className="py-3 text-center text-xs font-bold text-slate-500">{label}</p>
     </div>
   );
 }
