@@ -131,9 +131,6 @@ function Index() {
               <div className="relative grid grid-cols-2 gap-4 px-4 py-6">
                 <ActivitySheet label="Exemplo de atividade" rotate="-rotate-3 translate-y-5" />
                 <ActivitySheet label="Exemplo de atividade" rotate="rotate-3" />
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-2xl bg-white px-5 py-3 text-center shadow-xl ring-1 ring-slate-100">
-                  <p className="text-xs font-bold text-slate-500">VERSÃO COMPLETA</p><p className="text-xl font-black text-slate-900">500 atividades</p>
-                </div>
               </div>
             </div>
           </div>
