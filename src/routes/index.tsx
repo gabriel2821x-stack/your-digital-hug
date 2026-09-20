@@ -36,12 +36,10 @@ const activities = [
 ];
 
 const testimonials = [
-  [
-    "/ctivities/ChatGPT Image 20_09_2026, 15_13_15.png",
-    "/ctivities/ChatGPT Image 20_09_2026, 15_14_57.png",
-    "/ctivities/ChatGPT Image 20_09_2026, 15_16_56.png",
-  ],
-  ["/ctivities/ChatGPT Image 20_09_2026, 15_19_49.png"],
+  "/ctivities/ChatGPT Image 20_09_2026, 15_13_15.png",
+  "/ctivities/ChatGPT Image 20_09_2026, 15_14_57.png",
+  "/ctivities/ChatGPT Image 20_09_2026, 15_16_56.png",
+  "/ctivities/ChatGPT Image 20_09_2026, 15_19_49.png",
 ];
 
 const faqs = [
@@ -207,20 +205,25 @@ function Index() {
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
-            <div
-              key={testimonialIndex}
-              className="grid w-[calc(100%-88px)] max-w-[1050px] grid-cols-3 gap-3 overflow-hidden"
-              style={{ animation: "testimonialFade 300ms ease-out" }}
-            >
-              {testimonials[testimonialIndex].map((src, imageIndex) => (
-                <img
-                  key={src}
-                  src={src}
-                  alt={`Depoimento de cliente ${testimonialIndex * 3 + imageIndex + 1}`}
-                  draggable={false}
-                  className="block h-auto w-full min-w-0 select-none object-contain"
-                />
-              ))}
+            <div className="w-[calc(100%-88px)] max-w-[1050px] overflow-hidden">
+              <div
+                key={testimonialIndex}
+                className="grid grid-cols-1 gap-3 sm:grid-cols-3"
+                style={{ animation: "testimonialFade 300ms ease-out" }}
+              >
+                {[0, 1, 2].map((offset) => {
+                  const imageIndex = (testimonialIndex + offset) % testimonials.length;
+                  return (
+                    <img
+                      key={`${testimonialIndex}-${imageIndex}`}
+                      src={testimonials[imageIndex]}
+                      alt={`Depoimento de cliente ${imageIndex + 1}`}
+                      draggable={false}
+                      className={`block h-auto w-full min-w-0 select-none object-contain ${offset > 0 ? "hidden sm:block" : ""}`}
+                    />
+                  );
+                })}
+              </div>
             </div>
             <button
               type="button"
