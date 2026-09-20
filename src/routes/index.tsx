@@ -129,8 +129,12 @@ function Index() {
             <div className="relative mx-auto w-full max-w-lg">
               <div className="absolute inset-10 rounded-full bg-sky-200/40 blur-3xl" />
               <div className="relative grid grid-cols-2 gap-4 px-4 py-6">
-                <ActivitySheet label="Exemplo de atividade" rotate="-rotate-3 translate-y-5" />
-                <ActivitySheet label="Exemplo de atividade" rotate="rotate-3" />
+                <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg -rotate-3 translate-y-5">
+                  <img src="/atividade-abelhinhas.svg" alt="Atividade de coordenação motora com abelhinhas" className="h-full w-full object-cover" />
+                </div>
+                <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg rotate-3">
+                  <img src="/atividade-cachorrinho.svg" alt="Atividade de coordenação motora com cachorrinho" className="h-full w-full object-cover" />
+                </div>
               </div>
             </div>
           </div>
