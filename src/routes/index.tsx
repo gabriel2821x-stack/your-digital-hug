@@ -209,7 +209,7 @@ function Index() {
             </button>
             <div
               key={testimonialIndex}
-              className={`grid w-[calc(100%-88px)] gap-3 overflow-hidden ${testimonials[testimonialIndex].length === 3 ? "max-w-[1050px] grid-cols-3" : "max-w-[450px] grid-cols-1"}`}
+              className="grid w-[calc(100%-88px)] max-w-[1050px] grid-cols-3 gap-3 overflow-hidden"
               style={{ animation: "testimonialFade 300ms ease-out" }}
             >
               {testimonials[testimonialIndex].map((src, imageIndex) => (
