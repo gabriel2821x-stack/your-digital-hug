@@ -262,7 +262,6 @@ function Index() {
                 <p className="mt-1 text-5xl font-black tracking-tight text-sky-600"><span className="text-2xl">R$</span> 23,90</p>
               </div>
               <button onClick={() => goToCheckout(CHECKOUTS.COMPLETO_CHECKOUT_URL, "COMPLETO_CHECKOUT_URL")} className="mt-6 w-full rounded-2xl bg-sky-600 px-5 py-4 text-sm font-black text-white shadow-lg shadow-sky-100 transition hover:-translate-y-0.5 hover:bg-sky-700">QUERO AS 500 ATIVIDADES</button>
-              <p className="mt-3 text-center text-xs font-semibold text-slate-500">Pagamento único • Sem mensalidade</p>
             </div>
           </div>
         </div>
