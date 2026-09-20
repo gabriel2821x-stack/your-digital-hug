@@ -134,12 +134,32 @@ function Index() {
         </div>
       </section>
 
-      <section className="px-5 py-[30px] sm:px-8">
-        <img
-          src="/ctivities/ChatGPT Image 20_09_2026, 16_28_43.png"
-          alt="Coordenação, precisão, preparação para a escrita, letras e atividades imprimíveis"
-          className="mx-auto block h-auto w-full max-w-[1100px] object-contain"
-        />
+      <section className="px-5 py-16 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle eyebrow="Material digital" title="Veja o que você vai receber" subtitle="Um material pensado para transformar o momento de praticar em uma experiência mais leve, visual e variada." />
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {activities.map((item, i) => <ActivitySheet key={item.label} label={item.label} src={item.src} rotate={i % 2 ? "translate-y-5" : ""} />)}
+            </div>
+            <div className="space-y-4">
+              {[
+                ["Coordenação e controle do lápis", "Caminhos, movimentos e exercícios para praticar o controle durante os traçados.", Target],
+                ["Precisão", "Atividades que exigem atenção aos limites, direções e espaços.", PencilLine],
+                ["Preparação para a escrita", "Movimentos progressivamente mais próximos daqueles utilizados na formação das letras.", BookOpen],
+                ["Letras e escrita", "Na versão completa, a criança avança para atividades envolvendo letras, sílabas, palavras e pequenas frases.", Star],
+                ["500 atividades na versão completa", "Grande variedade para evitar que a prática fique repetitiva.", Sparkles],
+              ].map(([title, text, Icon]: any) => (
+                <div key={title} className="group flex gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                  <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-sky-50 text-sky-600"><Icon className="h-5 w-5" /></div>
+                  <div><h3 className="font-extrabold text-slate-900">{title}</h3><p className="mt-1 text-sm leading-6 text-slate-600">{text}</p></div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mx-auto mt-14 flex max-w-xl items-center justify-center gap-3 rounded-full bg-slate-900 px-5 py-3 text-xs font-black tracking-[.18em] text-white sm:text-sm">
+            <Download className="h-4 w-4 text-sky-300" /> BAIXE <span className="text-slate-500">•</span> IMPRIMA <span className="text-slate-500">•</span> PRATIQUE
+          </div>
+        </div>
       </section>
 
       <section className="bg-amber-50/70 px-5 py-16 sm:px-8 sm:py-24">
