@@ -86,7 +86,7 @@ function Index() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const testimonialTouchStart = useRef<number | null>(null);
 
-  const testimonialSlides = [testimonials.slice(0, 3), testimonials.slice(3)];
+  const testimonialSlides = [testimonials.slice(0, 3), testimonials.slice(1, 4)];
   const showPreviousTestimonial = () => setTestimonialIndex((index) => (index - 1 + testimonialSlides.length) % testimonialSlides.length);
   const showNextTestimonial = () => setTestimonialIndex((index) => (index + 1) % testimonialSlides.length);
 
@@ -220,9 +220,9 @@ function Index() {
                   <img
                     key={src}
                     src={src}
-                    alt={`Depoimento de cliente ${testimonialIndex === 0 ? imageIndex + 1 : 4}`}
+                    alt={`Depoimento de cliente ${testimonialIndex + imageIndex + 1}`}
                     draggable={false}
-                    className={`block h-auto w-full min-w-0 select-none rounded-2xl border border-amber-100 bg-amber-50/30 object-contain ${testimonialIndex === 1 ? "col-start-2" : ""}`}
+                    className="block h-auto w-full min-w-0 select-none rounded-2xl border border-amber-100 bg-amber-50/30 object-contain"
                   />
                 ))}
               </div>
