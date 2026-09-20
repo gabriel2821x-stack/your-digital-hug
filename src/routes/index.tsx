@@ -4,6 +4,8 @@ import {
   CalendarDays,
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Download,
   Gift,
   LockKeyhole,
@@ -16,7 +18,7 @@ import {
   Target,
   X,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/")({ component: Index });
 
@@ -31,6 +33,13 @@ const activities = [
   { label: "Traçados e movimentos", src: "/ctivities/ChatGPT Image 20_09_2026, 13_58_16.png" },
   { label: "Precisão e limites", src: "/ctivities/ChatGPT Image 20_09_2026, 14_04_41.png" },
   { label: "Letras e escrita", src: "/ctivities/ChatGPT Image 20_09_2026, 14_40_23.png" },
+];
+
+const testimonials = [
+  "/ctivities/ChatGPT Image 20_09_2026, 15_13_15.png",
+  "/ctivities/ChatGPT Image 20_09_2026, 15_14_57.png",
+  "/ctivities/ChatGPT Image 20_09_2026, 15_16_56.png",
+  "/ctivities/ChatGPT Image 20_09_2026, 15_19_49.png",
 ];
 
 const faqs = [
@@ -74,6 +83,11 @@ function ActivitySheet({ label, src, rotate = "" }: { label: string; src: string
 function Index() {
   const [upgradeOpen, setUpgradeOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const testimonialTouchStart = useRef<number | null>(null);
+
+  const showPreviousTestimonial = () => setTestimonialIndex((index) => (index - 1 + testimonials.length) % testimonials.length);
+  const showNextTestimonial = () => setTestimonialIndex((index) => (index + 1) % testimonials.length);
 
   useEffect(() => {
     if (!upgradeOpen) return;
@@ -166,13 +180,63 @@ function Index() {
       </section>
 
       <section className="px-5 py-12 sm:px-8 sm:py-16">
-        <div className="mx-auto max-w-[1200px]">
-          <h2 className="mb-6 text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">O que pais e responsáveis estão dizendo</h2>
-          <img
-            src="/ctivities/ChatGPT Image 20_09_2026, 14_49_51.png"
-            alt="Depoimentos de pais e responsáveis"
-            className="mx-auto block h-auto w-full max-w-[1200px] object-contain"
-          />
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-5 text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">O que pais e responsáveis estão dizendo</h2>
+          <div
+            className="mx-auto flex w-full max-w-[560px] touch-pan-y items-center justify-center gap-2 sm:gap-4"
+            onTouchStart={(event) => {
+              testimonialTouchStart.current = event.touches[0]?.clientX ?? null;
+            }}
+            onTouchEnd={(event) => {
+              if (testimonialTouchStart.current === null) return;
+              const endX = event.changedTouches[0]?.clientX ?? testimonialTouchStart.current;
+              const distance = endX - testimonialTouchStart.current;
+              testimonialTouchStart.current = null;
+              if (Math.abs(distance) < 45) return;
+              if (distance < 0) showNextTestimonial();
+              else showPreviousTestimonial();
+            }}
+          >
+            <button
+              type="button"
+              aria-label="Depoimento anterior"
+              onClick={showPreviousTestimonial}
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:text-slate-900 hover:shadow-md sm:h-11 sm:w-11"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <div className="w-[calc(100%-88px)] max-w-[450px] overflow-hidden rounded-2xl">
+              <img
+                key={testimonialIndex}
+                src={testimonials[testimonialIndex]}
+                alt={`Depoimento de cliente ${testimonialIndex + 1} de ${testimonials.length}`}
+                draggable={false}
+                className="block h-auto w-full select-none object-contain"
+                style={{ animation: "testimonialFade 300ms ease-out" }}
+              />
+            </div>
+            <button
+              type="button"
+              aria-label="Próximo depoimento"
+              onClick={showNextTestimonial}
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 hover:text-slate-900 hover:shadow-md sm:h-11 sm:w-11"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+          <div className="mt-4 flex justify-center gap-2" aria-label="Selecionar depoimento">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                aria-label={`Mostrar depoimento ${index + 1}`}
+                aria-current={testimonialIndex === index ? "true" : undefined}
+                onClick={() => setTestimonialIndex(index)}
+                className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${testimonialIndex === index ? "scale-110 bg-sky-600" : "bg-slate-300 hover:bg-slate-400"}`}
+              />
+            ))}
+          </div>
+          <style>{`@keyframes testimonialFade { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }`}</style>
         </div>
       </section>
 
