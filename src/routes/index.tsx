@@ -1,24 +1,298 @@
 import { createFileRoute } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  BookOpen,
+  CalendarDays,
+  Check,
+  ChevronDown,
+  Download,
+  Gift,
+  LockKeyhole,
+  Medal,
+  PencilLine,
+  Printer,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Target,
+  X,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
+export const Route = createFileRoute("/")({ component: Index });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const CHECKOUTS = {
+  ESSENCIAL_CHECKOUT_URL: "",
+  COMPLETO_CHECKOUT_URL: "",
+  UPGRADE_CHECKOUT_URL: "",
+} as const;
+
+const activityPlaceholders = [
+  "Caminhos e labirintos",
+  "Traçados e movimentos",
+  "Precisão e limites",
+  "Letras e escrita",
+];
+
+const testimonials = [1, 2, 3];
+
+const faqs = [
+  ["O produto é físico?", "Não. Este é um produto 100% digital. Você recebe o material para baixar e pode imprimir as atividades."],
+  ["Qual a diferença entre os dois pacotes?", "O Pacote Essencial possui 150 atividades. O Pacote Completo possui 500 atividades e oferece uma variedade maior de exercícios e progressão de conteúdo."],
+  ["Preciso imprimir todas as atividades de uma vez?", "Não. Você pode escolher as atividades e imprimir somente as páginas que desejar."],
+  ["Posso imprimir novamente?", "Você poderá utilizar o arquivo de acordo com os termos de uso informados na compra."],
+  ["Como recebo o material?", "O acesso é digital e as instruções de acesso são disponibilizadas após a confirmação do pagamento."],
+  ["Serve para qualquer criança?", "As atividades foram desenvolvidas como material educativo complementar. Cada criança possui seu próprio ritmo, então os responsáveis podem selecionar as atividades mais adequadas ao momento dela."],
+  ["Isso substitui acompanhamento profissional?", "Não. O material possui finalidade educativa e não substitui avaliação, orientação ou acompanhamento de profissionais quando necessários."],
+  ["Existe garantia?", "Sim. A compra conta com o período de garantia informado nesta página, conforme as condições aplicáveis."],
+];
+
+function goToCheckout(url: string, label: string) {
+  if (!url) {
+    console.info(`Configure ${label} em CHECKOUTS antes de publicar.`);
+    return;
+  }
+  window.location.href = url;
+}
+
+function SectionTitle({ eyebrow, title, subtitle }: { eyebrow?: string; title: string; subtitle?: string }) {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
+      {eyebrow && <p className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-sky-600">{eyebrow}</p>}
+      <h2 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">{title}</h2>
+      {subtitle && <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">{subtitle}</p>}
     </div>
+  );
+}
+
+function ActivitySheet({ label, rotate = "" }: { label: string; rotate?: string }) {
+  return (
+    <div className={`relative aspect-[3/4] overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-lg ${rotate}`}>
+      <div className="mb-3 flex items-center gap-2"><div className="h-3 w-16 rounded-full bg-sky-100" /><div className="h-3 w-8 rounded-full bg-amber-100" /></div>
+      <div className="grid h-[70%] place-items-center rounded-xl border-2 border-dashed border-sky-200 bg-sky-50/60">
+        <PencilLine className="h-9 w-9 text-sky-400" />
+      </div>
+      <p className="mt-3 text-center text-xs font-bold text-slate-500">{label}</p>
+      <span className="absolute right-2 top-2 rounded-full bg-amber-300 px-2 py-1 text-[9px] font-black text-amber-950">IMAGEM</span>
+    </div>
+  );
+}
+
+function Index() {
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  useEffect(() => {
+    if (!upgradeOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKeyDown = (event: KeyboardEvent) => event.key === "Escape" && setUpgradeOpen(false);
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [upgradeOpen]);
+
+  const scrollToOffers = () => document.getElementById("ofertas")?.scrollIntoView({ behavior: "smooth" });
+
+  return (
+    <main className="overflow-x-hidden bg-white text-slate-800">
+      <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-white to-white px-5 pb-16 pt-7 sm:px-8 sm:pb-24 lg:pt-10">
+        <div className="pointer-events-none absolute -right-24 top-12 h-72 w-72 rounded-full bg-amber-200/30 blur-3xl" />
+        <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-emerald-200/30 blur-3xl" />
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-sky-100 bg-white px-4 py-2 text-sm font-extrabold text-sky-700 shadow-sm">
+            <BookOpen className="h-4 w-4" /> SUA LOGO • Material educativo imprimível
+          </div>
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr]">
+            <div>
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1.5 text-xs font-black uppercase tracking-wide text-amber-800">
+                <Sparkles className="h-4 w-4" /> Prática leve, visual e variada
+              </div>
+              <h1 className="text-4xl font-black leading-[1.06] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+                Ajude seu filho a ganhar mais <span className="text-sky-600">segurança e controle</span> na hora de escrever
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+                Centenas de atividades imprimíveis, divertidas e progressivas para praticar movimentos, traçados, precisão e habilidades importantes para a escrita.
+              </p>
+              <div className="mt-7 grid gap-3 text-sm font-semibold text-slate-700 sm:grid-cols-2">
+                {["Atividades prontas para imprimir", "Prática progressiva", "Diferentes tipos de exercícios", "Material digital", "Acesso após a compra"].map((item) => (
+                  <div key={item} className="flex items-center gap-2"><span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-emerald-100 text-emerald-700"><Check className="h-3.5 w-3.5" /></span>{item}</div>
+                ))}
+              </div>
+              <button onClick={scrollToOffers} className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-sky-600 px-6 py-4 text-sm font-black text-white shadow-lg shadow-sky-200 transition hover:-translate-y-0.5 hover:bg-sky-700 sm:w-auto sm:text-base">
+                QUERO CONHECER AS ATIVIDADES <ArrowRight className="h-5 w-5" />
+              </button>
+              <p className="mt-3 text-xs text-slate-500">Produto digital • Imprima as páginas que desejar</p>
+            </div>
+            <div className="relative mx-auto w-full max-w-lg">
+              <div className="absolute inset-10 rounded-full bg-sky-200/40 blur-3xl" />
+              <div className="relative grid grid-cols-2 gap-4 px-4 py-6">
+                <ActivitySheet label="Exemplo de atividade" rotate="-rotate-3 translate-y-5" />
+                <ActivitySheet label="Exemplo de atividade" rotate="rotate-3" />
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-2xl bg-white px-5 py-3 text-center shadow-xl ring-1 ring-slate-100">
+                  <p className="text-xs font-bold text-slate-500">VERSÃO COMPLETA</p><p className="text-xl font-black text-slate-900">500 atividades</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle eyebrow="Material digital" title="Veja o que você vai receber" subtitle="Um material pensado para transformar o momento de praticar em uma experiência mais leve, visual e variada." />
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div className="grid grid-cols-2 gap-4">
+              {activityPlaceholders.map((item, i) => <ActivitySheet key={item} label={item} rotate={i % 2 ? "translate-y-5" : ""} />)}
+            </div>
+            <div className="space-y-4">
+              {[
+                ["Coordenação e controle do lápis", "Caminhos, movimentos e exercícios para praticar o controle durante os traçados.", Target],
+                ["Precisão", "Atividades que exigem atenção aos limites, direções e espaços.", PencilLine],
+                ["Preparação para a escrita", "Movimentos progressivamente mais próximos daqueles utilizados na formação das letras.", BookOpen],
+                ["Letras e escrita", "Na versão completa, a criança avança para atividades envolvendo letras, sílabas, palavras e pequenas frases.", Star],
+                ["500 atividades na versão completa", "Grande variedade para evitar que a prática fique repetitiva.", Sparkles],
+              ].map(([title, text, Icon]: any) => (
+                <div key={title} className="group flex gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                  <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-sky-50 text-sky-600"><Icon className="h-5 w-5" /></div>
+                  <div><h3 className="font-extrabold text-slate-900">{title}</h3><p className="mt-1 text-sm leading-6 text-slate-600">{text}</p></div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mx-auto mt-14 flex max-w-xl items-center justify-center gap-3 rounded-full bg-slate-900 px-5 py-3 text-xs font-black tracking-[.18em] text-white sm:text-sm">
+            <Download className="h-4 w-4 text-sky-300" /> BAIXE <span className="text-slate-500">•</span> IMPRIMA <span className="text-slate-500">•</span> PRATIQUE
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-amber-50/70 px-5 py-16 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle title="E ainda tem bônus 🎁" subtitle="Recursos extras para ajudar os responsáveis a organizar e acompanhar os momentos de prática." />
+          <div className="grid gap-5 md:grid-cols-3">
+            {[
+              ["Guia rápido para os responsáveis", "Orientações simples para organizar os momentos de prática.", BookOpen],
+              ["Calendário de atividades", "Uma forma simples de acompanhar as atividades realizadas.", CalendarDays],
+              ["Certificado de conclusão", "Um certificado imprimível para tornar o final da jornada mais especial.", Medal],
+            ].map(([title, text, Icon]: any, i) => (
+              <div key={title} className="relative rounded-3xl border border-amber-100 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                <span className="absolute right-5 top-5 rounded-full bg-amber-300 px-3 py-1 text-[10px] font-black text-amber-950">BÔNUS</span>
+                <div className="mb-6 grid h-14 w-14 place-items-center rounded-2xl bg-amber-100 text-amber-700"><Icon className="h-7 w-7" /></div>
+                <p className="text-xs font-black uppercase tracking-widest text-amber-700">Bônus {i + 1}</p>
+                <h3 className="mt-2 text-xl font-black text-slate-900">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle title="O que pais e responsáveis estão dizendo" subtitle="Espaço preparado para você adicionar avaliações reais de clientes." />
+          <div className="grid gap-5 md:grid-cols-3">
+            {testimonials.map((item) => (
+              <div key={item} className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-6">
+                <div className="mb-5 grid h-12 w-12 place-items-center rounded-full bg-slate-200 text-xs font-bold text-slate-500">FOTO</div>
+                <p className="mb-3 inline-block rounded-lg bg-slate-200 px-3 py-1 text-[10px] font-black tracking-wide text-slate-600">ADICIONAR DEPOIMENTO REAL</p>
+                <div className="mb-4 flex gap-1 text-amber-400">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}</div>
+                <p className="text-sm italic leading-6 text-slate-600">“Insira aqui o depoimento verdadeiro de um cliente.”</p>
+                <p className="mt-5 text-sm font-extrabold text-slate-800">— Nome do cliente</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="ofertas" className="scroll-mt-6 bg-slate-950 px-5 py-16 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle eyebrow="Escolha seu pacote" title="Escolha a melhor opção para começar" subtitle="Você recebe o material digital e pode imprimir as atividades para utilizar quando precisar." />
+          <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-2 lg:items-stretch">
+            <div className="flex flex-col rounded-3xl bg-white p-6 shadow-2xl sm:p-8">
+              <span className="mb-5 self-start rounded-full bg-amber-100 px-3 py-1.5 text-[10px] font-black text-amber-800">PROMOÇÃO POR TEMPO LIMITADO</span>
+              <p className="text-sm font-black tracking-wider text-slate-500">PACOTE ESSENCIAL</p><h3 className="mt-1 text-3xl font-black text-slate-950">150 ATIVIDADES</h3>
+              <div className="my-7 h-px bg-slate-100" />
+              <ul className="flex-1 space-y-3 text-sm text-slate-700">
+                {["150 atividades imprimíveis", "Exercícios variados", "Coordenação e controle do lápis", "Traçados e precisão", "Preparação para a escrita", "Material em PDF", "Acesso digital"].map((x) => <li key={x} className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />{x}</li>)}
+              </ul>
+              <div className="mt-8"><p className="text-sm font-bold text-slate-500">Pagamento único</p><p className="text-5xl font-black tracking-tight text-slate-950"><span className="text-2xl">R$</span> 9,90</p></div>
+              <button onClick={() => setUpgradeOpen(true)} className="mt-6 w-full rounded-2xl bg-slate-900 px-5 py-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-slate-800">QUERO O PACOTE ESSENCIAL</button>
+            </div>
+
+            <div className="relative flex flex-col rounded-3xl bg-white p-6 shadow-2xl ring-4 ring-sky-400 sm:p-8 lg:-translate-y-3">
+              <span className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-sky-500 px-5 py-2 text-xs font-black text-white shadow-lg">MAIS COMPLETO</span>
+              <p className="mt-4 text-sm font-black tracking-wider text-sky-600">PACOTE COMPLETO</p><h3 className="mt-1 text-3xl font-black text-slate-950">500 ATIVIDADES</h3>
+              <div className="my-7 h-px bg-slate-100" />
+              <ul className="flex-1 space-y-3 text-sm text-slate-700">
+                {["500 atividades imprimíveis", "Maior variedade de exercícios", "Progressão de dificuldade", "Coordenação e controle", "Traçados e precisão", "Preparação para letras", "Atividades com letras", "Sílabas", "Palavras", "Pequenas frases", "Todos os bônus", "Material em PDF", "Acesso digital"].map((x) => <li key={x} className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />{x}</li>)}
+              </ul>
+              <div className="mt-8">
+                <div className="flex items-center gap-3"><p className="text-sm font-bold text-slate-400 line-through">DE R$ 49,90</p><span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-black text-emerald-700">50% OFF</span></div>
+                <p className="mt-1 text-5xl font-black tracking-tight text-sky-600"><span className="text-2xl">R$</span> 23,90</p>
+              </div>
+              <button onClick={() => goToCheckout(CHECKOUTS.COMPLETO_CHECKOUT_URL, "COMPLETO_CHECKOUT_URL")} className="mt-6 w-full rounded-2xl bg-sky-600 px-5 py-4 text-sm font-black text-white shadow-lg shadow-sky-100 transition hover:-translate-y-0.5 hover:bg-sky-700">QUERO AS 500 ATIVIDADES</button>
+              <p className="mt-3 text-center text-xs font-semibold text-slate-500">Pagamento único • Sem mensalidade</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-4xl rounded-[2rem] border border-emerald-100 bg-emerald-50/60 p-7 text-center sm:p-12">
+          <div className="mx-auto grid h-20 w-20 place-items-center rounded-3xl bg-emerald-100 text-emerald-700"><ShieldCheck className="h-10 w-10" /></div>
+          <h2 className="mt-6 text-3xl font-black text-slate-900 sm:text-4xl">Você compra com garantia</h2>
+          <p className="mx-auto mt-4 max-w-2xl leading-7 text-slate-600">Você terá 7 dias de garantia para conhecer o material. Caso esteja dentro das condições aplicáveis e não queira permanecer com a compra, poderá solicitar o reembolso dentro desse período.</p>
+          <p className="mx-auto mt-6 inline-block rounded-2xl bg-emerald-600 px-5 py-3 text-lg font-black text-white">7 DIAS DE GARANTIA</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-5 text-sm font-bold text-slate-700">
+            <span className="flex items-center gap-2"><LockKeyhole className="h-4 w-4" /> Pagamento seguro</span><span className="flex items-center gap-2"><Download className="h-4 w-4" /> Produto digital</span><span className="flex items-center gap-2"><Printer className="h-4 w-4" /> Material imprimível</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-sky-50/60 px-5 py-16 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-3xl">
+          <SectionTitle title="Perguntas frequentes" subtitle="As principais dúvidas sobre o material e a forma de acesso." />
+          <div className="space-y-3">
+            {faqs.map(([question, answer], i) => {
+              const open = openFaq === i;
+              return <div key={question} className="overflow-hidden rounded-2xl border border-sky-100 bg-white shadow-sm">
+                <button aria-expanded={open} onClick={() => setOpenFaq(open ? null : i)} className="flex w-full items-center justify-between gap-4 p-5 text-left font-extrabold text-slate-900">
+                  {question}<ChevronDown className={`h-5 w-5 shrink-0 text-sky-600 transition ${open ? "rotate-180" : ""}`} />
+                </button>
+                {open && <div className="px-5 pb-5 text-sm leading-6 text-slate-600">{answer}</div>}
+              </div>;
+            })}
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-white px-5 py-10 sm:px-8">
+        <div className="mx-auto max-w-6xl text-center">
+          <div className="mb-5 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-bold text-slate-600"><span>Termos de Uso</span><span>Política de Privacidade</span><span>Contato/Suporte</span></div>
+          <p className="text-sm font-semibold text-slate-700">Produto digital. Nenhum material físico será enviado.</p>
+          <p className="mx-auto mt-2 max-w-2xl text-xs leading-5 text-slate-500">Material educativo complementar. Os resultados da prática podem variar de criança para criança.</p>
+        </div>
+      </footer>
+
+      {upgradeOpen && (
+        <div role="dialog" aria-modal="true" aria-labelledby="upgrade-title" className="fixed inset-0 z-50 grid place-items-center bg-slate-950/70 p-4 backdrop-blur-sm" onMouseDown={(e) => e.target === e.currentTarget && setUpgradeOpen(false)}>
+          <div className="relative max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl sm:p-8">
+            <button aria-label="Fechar oferta" onClick={() => setUpgradeOpen(false)} className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-slate-100 text-slate-600 transition hover:bg-slate-200"><X className="h-5 w-5" /></button>
+            <div className="pr-10"><span className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1.5 text-[10px] font-black text-amber-800"><Gift className="h-3.5 w-3.5" /> OFERTA ESPECIAL DE UPGRADE</span>
+              <h2 id="upgrade-title" className="mt-4 text-2xl font-black leading-tight text-slate-950 sm:text-3xl">Espere! Quer levar muito mais atividades pagando menos?</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-600">Antes de continuar com o pacote de 150 atividades, você pode aproveitar uma condição especial para levar a versão completa.</p>
+            </div>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-slate-200 p-5"><p className="text-xs font-black text-slate-500">ESSENCIAL</p><p className="mt-1 text-2xl font-black">150 atividades</p><p className="mt-3 text-xl font-black">R$ 9,90</p></div>
+              <div className="rounded-2xl border-2 border-sky-400 bg-sky-50 p-5"><p className="text-xs font-black text-sky-600">VERSÃO COMPLETA</p><p className="mt-1 text-2xl font-black">500 atividades</p><p className="mt-2 text-xs font-bold text-slate-400 line-through">De R$ 49,90</p><p className="text-3xl font-black text-sky-600">R$ 17,90</p></div>
+            </div>
+            <p className="mt-5 rounded-xl bg-emerald-50 p-3 text-center text-sm font-extrabold text-emerald-800">São 350 atividades adicionais por apenas R$ 8 a mais.</p>
+            <button onClick={() => goToCheckout(CHECKOUTS.UPGRADE_CHECKOUT_URL, "UPGRADE_CHECKOUT_URL")} className="mt-5 w-full rounded-2xl bg-sky-600 px-5 py-4 text-sm font-black text-white shadow-lg transition hover:bg-sky-700">SIM, QUERO 500 ATIVIDADES POR R$ 17,90</button>
+            <button onClick={() => goToCheckout(CHECKOUTS.ESSENCIAL_CHECKOUT_URL, "ESSENCIAL_CHECKOUT_URL")} className="mt-3 w-full px-4 py-3 text-xs font-bold text-slate-500 underline underline-offset-4 hover:text-slate-800">Não, quero continuar apenas com as 150 atividades por R$ 9,90</button>
+          </div>
+        </div>
+      )}
+    </main>
   );
 }
