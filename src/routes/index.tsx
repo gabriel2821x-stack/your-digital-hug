@@ -23,9 +23,9 @@ import { useEffect, useRef, useState } from "react";
 export const Route = createFileRoute("/")({ component: Index });
 
 const CHECKOUTS = {
-  ESSENCIAL_CHECKOUT_URL: "",
-  COMPLETO_CHECKOUT_URL: "",
-  UPGRADE_CHECKOUT_URL: "",
+  ESSENCIAL_CHECKOUT_URL: "https://app.zuptos.com.br/checkout/b102fa987fa78eba",
+  COMPLETO_CHECKOUT_URL: "https://app.zuptos.com.br/checkout/d797793196c2a2f4",
+  UPGRADE_CHECKOUT_URL: "https://app.zuptos.com.br/checkout/eb8f72a7a51fcd50",
 } as const;
 
 const activities = [
